@@ -10,4 +10,6 @@ public interface IStudentDAO {
 	Serializable saveStudent(StudentEntity entity);
 	
 	List<StudentEntity> getAllStudents();
+	
+	String updateById(Long stId, StudentEntity entity);
 }

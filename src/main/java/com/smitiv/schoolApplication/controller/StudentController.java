@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,5 +44,11 @@ public class StudentController {
 	@GetMapping("allStudents")
 	public ResponseEntity<List<StudentDTO>> getAllStudent(){
 		return new ResponseEntity<List<StudentDTO>>(iStudentService.getAllStudents(),HttpStatus.OK);
+	}
+	
+	@PutMapping("/updateById/{stId}")
+	public ResponseEntity<String> upadateByStId(@RequestBody StudentDTO dto , @PathVariable Long stId){
+		logger.info("PathVariable is {} and DTO is {}",stId, dto);
+		return new ResponseEntity<String>(iStudentService.updateById(stId,dto),HttpStatus.OK);
 	}
 }

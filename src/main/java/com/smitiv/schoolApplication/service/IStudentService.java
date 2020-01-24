@@ -10,4 +10,6 @@ public interface IStudentService {
 	Serializable saveStudent(StudentDTO dto);
 	
 	List<StudentDTO> getAllStudents();
+	
+	String updateById(Long stId, StudentDTO dto);
 }

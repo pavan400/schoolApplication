@@ -57,4 +57,35 @@ public class StudentDAOImpl implements IStudentDAO {
 		}
 		return null;
 	}
+	
+	@Override
+	public String updateById(Long stId, StudentEntity entity) {
+		Session session = factory.openSession();
+		try {
+			Transaction transaction = session.beginTransaction();
+			StudentEntity entity2 = session.get(StudentEntity.class, stId);
+			if (entity.getBranch() != null) {
+				entity2.setBranch(entity.getBranch());
+			}
+			if (entity.getStName() != null) {
+				entity2.setStName(entity.getStName());
+			}
+
+			if (entity.getStAddress() != null) {
+				entity2.setStAddress(entity.getStAddress());
+			}
+			if (entity.getPhNo() != null) {
+				entity2.setPhNo(entity.getPhNo());
+			}
+			logger.info("Before saving {}",entity2);
+			session.update(entity2);
+			transaction.commit();
+			return "Update Successfull.....";
+		} catch (HibernateException e) {
+			logger.error("message is {}, error is {}", e.getMessage(), e);
+			return "Student data is not updated................";
+		} finally {
+			session.close();
+		}
+	}
 }

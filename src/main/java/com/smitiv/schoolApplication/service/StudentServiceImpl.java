@@ -48,5 +48,13 @@ public class StudentServiceImpl implements IStudentService {
 		}
 		return null;
 	}
+	
+	@Override
+	public String updateById(Long stId, StudentDTO dto) {
+		StudentEntity entity = new StudentEntity();
+		BeanUtils.copyProperties(dto, entity);
+		return iStudentDAO.updateById(stId,entity);
+			
+	}
 
 }
