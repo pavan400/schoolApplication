@@ -1,8 +1,10 @@
 package com.smitiv.schoolApplication.dao;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -33,6 +35,21 @@ public class StudentDAOImpl implements IStudentDAO {
 				return res;
 			}
 
+		} catch (HibernateException e) {
+			logger.error("message is {}, error is {}", e.getMessage(), e);
+		} finally {
+			session.close();
+		}
+		return null;
+	}
+	
+	@Override
+	public List<StudentEntity> getAllStudents() {
+		Session session = factory.openSession();
+		try {
+			Query query = session.createQuery("FROM StudentEntity");
+			List<StudentEntity> list = query.list();
+			return list;
 		} catch (HibernateException e) {
 			logger.error("message is {}, error is {}", e.getMessage(), e);
 		} finally {
